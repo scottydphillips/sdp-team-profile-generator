@@ -1,5 +1,4 @@
 const inquirer = require("inquirer");
-const path = require("path");
 const fs = require("fs");
 const Employee = require("./employee.js");
 const Manager = require('./manager.js');
@@ -84,28 +83,53 @@ const engineerQuestions = [
 		}
 		]
 
-createManager = () => {
-	inquirer.prompt(managerQuestions)
-	.then((data) => console.log(data)
+pushTeamArray = (data) => {
 	teamArray.push(data)
-	console.log(teamArray))
-	.then(moreEmployees())
+	console.log(teamArray)
+}
+
+createManager = () => {
+	console.log("Let's build your team!")
+	inquirer.prompt(managerQuestions)
+	.then((data) => { 
+		console.log(data)
+		pushTeamArray(data)
+		console.log(data.Manager.getName())
+	// fs.appendFile('index.html', managerCard, err => {
+	// 	if(err) {
+	// 		console.error(err)
+	// 	}
+	// })
+	moreEmployees()
+});
 }
 
 createEngineer = () => {
 	inquirer.prompt(engineerQuestions)
-	.then((data) => console.log(data)
-	teamArray.push(data)
-	console.log(teamArray))
-	.then(moreEmployees());
+	.then((data) => {
+	console.log(data)
+	pushTeamArray(data)
+	fs.appendFile('index.html', engineerCard, err => {
+		if(err) {
+			console.error(err)
+		}
+	})
+	moreEmployees();
+})
 }
 
 createIntern = () => {
 	inquirer.prompt(internQuestions)
-	.then((data) => console.log(data)
-	teamArray.push(data)
-	console.log(teamArray))
-	.then(moreEmployees());
+	.then((data) => {
+	 console.log(data)
+		pushTeamArray(data)
+	fs.appendFile('index.html', internCard, err => {
+		if(err) {
+			console.error(err)
+		}
+	})
+	moreEmployees();
+})
 }
 
 moreEmployees = () => {
@@ -120,11 +144,6 @@ moreEmployees = () => {
 	}
 	})
 }
-
-// promptSequence = () => {
-// 	createManager();
-	
-// }
 
 const starterHTML = `
 			<!DOCTYPE html>
@@ -150,23 +169,22 @@ startHTML = () => {
 		console.error(err)
 		return;
 		}
-		console.log("HTML generated successfully")
 	})
 }
 	
-const managerCard =	
+const managerCard =
 	`<div class="container-fluid">
 		<div class="card" id="manager-card" style="width: 18rem;">
 			<div class="card-body">
 				<h5 class="card-title">Manager</h5>
-				<p class="card-text">${Manager.name}</p>
+				<p class="card-text">${Manager.getName()}</p>
 			</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item">${Manager.id}</li>
-				<a href="mailto:${Manager.email}>
-					<li class="list-group-item">${Manager.email}</li>
+				<li class="list-group-item">${Manager.getId()}</li>
+				<a href="mailto:${Manager.getEmail()}>
+					<li class="list-group-item">${Manager.getEmail()}</li>
 				</a>
-					<li class="list-group-item">${Manager.office}</li>
+					<li class="list-group-item">${Manager.getOffice()}</li>
 			</ul>
 		</div>`
 
@@ -211,15 +229,18 @@ const HTMLtag =
 <script src="script.js"></script>
 </html>
 `			
-fs.appendFile('index.html', HTMLtag, err => {
+endHTML= () => {
+	fs.appendFile('index.html', HTMLtag, err => {
 	if(err) {
 		console.error(err)
 	}
 })
+}
 
 init = () => {
 	startHTML();
 	createManager();
+	endHTML();
 }
 
 init();
