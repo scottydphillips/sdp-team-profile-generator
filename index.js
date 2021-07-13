@@ -8,10 +8,6 @@ const Intern = require('./intern.js');
 
 const teamArray= [];
 
-// const managerCard = document.getElementbyId("manager-card")
-// const engineerCard = document.getElementbyId("engineer-card")
-// const internCard = document.getElementById("intern-card")
-
 const managerQuestions = [
 	{
 	name: "managerName",
@@ -90,24 +86,24 @@ const engineerQuestions = [
 
 createManager = () => {
 	inquirer.prompt(managerQuestions)
-	.then((data) => console.log(data),
-	teamArray.push(data),
+	.then((data) => console.log(data)
+	teamArray.push(data)
 	console.log(teamArray))
 	.then(moreEmployees())
 }
 
 createEngineer = () => {
 	inquirer.prompt(engineerQuestions)
-	.then((data) => console.log(data),
-	teamArray.push(data),
+	.then((data) => console.log(data)
+	teamArray.push(data)
 	console.log(teamArray))
 	.then(moreEmployees());
 }
 
 createIntern = () => {
 	inquirer.prompt(internQuestions)
-	.then((data) => console.log(data),
-	teamArray.push(data),
+	.then((data) => console.log(data)
+	teamArray.push(data)
 	console.log(teamArray))
 	.then(moreEmployees());
 }
@@ -124,8 +120,6 @@ moreEmployees = () => {
 	}
 	})
 }
-
-createManager();
 
 // promptSequence = () => {
 // 	createManager();
@@ -184,7 +178,7 @@ const engineerCard =
 			</div>
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item">${Engineer.id}</li>
-				<a href="mailto:${Engineer.email}"
+				<a href="mailto:${Engineer.email}">
 					<li class="list-group-item">${Engineer.email}</li>
 				</a>
 				<a href="https://www.github.com/${Engineer.github}>
@@ -222,3 +216,10 @@ fs.appendFile('index.html', HTMLtag, err => {
 		console.error(err)
 	}
 })
+
+init = () => {
+	startHTML();
+	createManager();
+}
+
+init();
