@@ -1,35 +1,18 @@
 const inquirer = require('inquirer');
-const Employee = require('./index.js');
+const Employee = require('./employee.js');
 
 class Engineer extends Employee {
-	constructor(github) {
+	constructor(rank, name, id, email, github) {
 	super(rank, name, id, email)
 	this.rank = 'Engineer';
 	this.github = github;
 	}
+	getGitHub() {
+		return(this.github);
+	}
+	getRole() {
+		return "Engineer"
+	}
 }
 
-const engineerQuestions = [
-	{
-		name: "engineerName",
-		type: "input",
-		message: "What is the engineer's name?"
-	},
-	{
-		name: "engineerId",
-		type: "input",
-		message: "What is the engineer's employee ID?"
-	},
-	{
-		name: "engineerEmail",
-		type: "input",
-		message: "What is the engineer's email?"
-	},
-	{
-		name: "engineerGithub",
-		type: "input",
-		message: "What is the engineer's GitHub username?"
-	},
-	]
-
-	inquirer.prompt(engineerQuestions);
+	module.exports = Engineer;

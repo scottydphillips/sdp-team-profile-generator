@@ -1,41 +1,138 @@
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const Manager = require('./manager.js')
-const Engineer = require('./engineer.js')
-const Intern = require('./intern.js')
+const Employee = require("./employee.js");
+const Manager = require('./manager.js');
+const Engineer = require('./engineer.js');
+const Intern = require('./intern.js');
+
+const teamArray= [];
 
 // const managerCard = document.getElementbyId("manager-card")
 // const engineerCard = document.getElementbyId("engineer-card")
 // const internCard = document.getElementById("intern-card")
 
-class Employee {
-	constructor(rank, name, id, email) {
-		this.rank = rank;
-		this.name = name;
-		this.id = id;
-		this.email = email
-	}
+const managerQuestions = [
+	{
+	name: "managerName",
+	type: "input",
+	message: "What is the team manager's name?"
+},
+{
+	name: "managerId",
+	type: "input",
+	message: "What is the team manager's employee ID?"
+},
+{
+	name: "managerEmail",
+	type: "input",
+	message: "What is the team manager's email?"
+},
+{
+	name: "managerOffice",
+	type: "input",
+	message: "What is the manager's office number?"
 }
+]
 
-const addEmployee = {
+const addEmployee = [{
 	name: "addEmployee",
 	type: "list",
 	message: "Which type of team member would you like to add?",
 	choices: ["Engineer", "Intern", "I am done adding team members"]
+}]
+
+const engineerQuestions = [
+	{
+		name: "engineerName",
+		type: "input",
+		message: "What is the engineer's name?"
+	},
+	{
+		name: "engineerId",
+		type: "input",
+		message: "What is the engineer's employee ID?"
+	},
+	{
+		name: "engineerEmail",
+		type: "input",
+		message: "What is the engineer's email?"
+	},
+	{
+		name: "engineerGithub",
+		type: "input",
+		message: "What is the engineer's GitHub username?"
+	},
+	]
+
+	const internQuestions = [
+		{
+			name: "internName",
+			type: "input",
+			message: "What is the intern's name?"
+		},
+		{
+			name: "internId",
+			type: "input",
+			message: "What is the intern's employee ID?"
+		},
+		{
+			name: "internEmail",
+			type: "input",
+			message: "What is the intern's email?"
+		},
+		{
+			name: "internSchool",
+			type: "input",
+			message: "Where does the intern go to school?"
+		}
+		]
+
+createManager = () => {
+	inquirer.prompt(managerQuestions)
+	.then((data) => console.log(data),
+	teamArray.push(data),
+	console.log(teamArray))
+	.then(moreEmployees())
 }
 
-inquirer.prompt(managerQuestions)
-	.then((data) => console.log(data)
-	.then(inquirer.prompt(addEmployee)
-	.then((res) => console.log(res) = () => {
-		if(addEmployee.data === addEmployee.choices[0]) {
-			inquirer.prompt(engineerQuestions);
-		} else if (addEmployee.data === addEmployee.choices[1]) {
-			inquirer.prompt(internQuestions);
-		} else {
-			const generateHTML =
-			`
+createEngineer = () => {
+	inquirer.prompt(engineerQuestions)
+	.then((data) => console.log(data),
+	teamArray.push(data),
+	console.log(teamArray))
+	.then(moreEmployees());
+}
+
+createIntern = () => {
+	inquirer.prompt(internQuestions)
+	.then((data) => console.log(data),
+	teamArray.push(data),
+	console.log(teamArray))
+	.then(moreEmployees());
+}
+
+moreEmployees = () => {
+	inquirer.prompt(addEmployee)
+	.then((data) => { console.log(data) 
+	if('Engineer' === data.addEmployee) {
+		createEngineer();
+	} else if ('Intern' === data.addEmployee) {
+		createIntern();
+	} else {
+		console.log("banana")
+	}
+	})
+}
+
+createManager();
+
+// promptSequence = () => {
+// 	createManager();
+	
+// }
+
+const starterHTML = `
 			<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,59 +148,77 @@ inquirer.prompt(managerQuestions)
 		<div class="container">
 			<h1 class="display-4">My Team</h1>
 		</div>
-	</div>
-	<div class="container-fluid">
+	</div>`
+
+startHTML = () => {	
+	fs.writeFile("index.html", starterHTML, err => {
+		if(err) {
+		console.error(err)
+		return;
+		}
+		console.log("HTML generated successfully")
+	})
+}
+	
+const managerCard =	
+	`<div class="container-fluid">
 		<div class="card" id="manager-card" style="width: 18rem;">
 			<div class="card-body">
 				<h5 class="card-title">Manager</h5>
-				<p class="card-text">${data.managerName}</p>
+				<p class="card-text">${Manager.name}</p>
 			</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item">${data.managerId}</li>
-				<li class="list-group-item">${data.managerEmail}</li>
-				<li class="list-group-item">${data.managerOffice}</li>
+				<li class="list-group-item">${Manager.id}</li>
+				<a href="mailto:${Manager.email}>
+					<li class="list-group-item">${Manager.email}</li>
+				</a>
+					<li class="list-group-item">${Manager.office}</li>
 			</ul>
-		</div>
-		<div class="card" id="engineer-card" style="width: 18rem;">
+		</div>`
+
+const engineerCard =
+		`<div class="card" id="engineer-card" style="width: 18rem;">
 			<div class="card-body">
 				<h5 class="card-title">Engineer</h5>
-				<p class="card-text">${res.engineerName}</p>
+				<p class="card-text">${Engineer.name}</p>
 			</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item">${res.engineerId}</li>
-				<li class="list-group-item">${res.engineerEmail}</li>
-				<li class="list-group-item">${res.engineerGithub}</li>
+				<li class="list-group-item">${Engineer.id}</li>
+				<a href="mailto:${Engineer.email}"
+					<li class="list-group-item">${Engineer.email}</li>
+				</a>
+				<a href="https://www.github.com/${Engineer.github}>
+					<li class="list-group-item">${Engineer.github}</li>
+				</a>
 			</ul>
-		</div>
-		<div class="card" id="intern-card" style="width: 18rem;">
+		</div>`
+
+const internCard =		
+		`<div class="card" id="intern-card" style="width: 18rem;">
 			<div class="card-body">
 				<h5 class="card-title">Intern</h5>
-				<p class="card-text">${res.internName}</p>
+				<p class="card-text">${Intern.name}</p>
 			</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item">${res.internId}</li>
-				<li class="list-group-item">${res.internEmail}</li>
-				<li class="list-group-item">${res.internSchool}</li>
+				<li class="list-group-item">${Intern.id}</li>
+				<a href="mailto:${Intern.email}>
+					<li class="list-group-item">${Intern.email}</li>
+				</a>
+				<li class="list-group-item">${Intern.school}</li>
 			</ul>
 		</div>
-	</div>
-</body>
+	</div>`
+
+const HTMLtag =	
+`</body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <script src="script.js"></script>
 </html>
-			`
-			fs.writeFile("index.html", generateHTML, err => {
-				if(err) {
-					console.error(err)
-					return;
-				}
-				console.log("HTML generated successfully")
-			})
-		}
-	})
-)
-)
-
-module.exports = Employee
+`			
+fs.appendFile('index.html', HTMLtag, err => {
+	if(err) {
+		console.error(err)
+	}
+})
