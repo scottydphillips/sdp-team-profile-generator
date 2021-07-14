@@ -4,6 +4,7 @@ const Employee = require("./employee.js");
 const Manager = require('./manager.js');
 const Engineer = require('./engineer.js');
 const Intern = require('./intern.js');
+const { create } = require("domain");
 
 const teamArray= [];
 
@@ -94,12 +95,26 @@ createManager = () => {
 	.then((data) => { 
 		console.log(data)
 		pushTeamArray(data)
-		console.log(data.Manager.getName())
-	// fs.appendFile('index.html', managerCard, err => {
-	// 	if(err) {
-	// 		console.error(err)
-	// 	}
-	// })
+		const managerCard =
+	`<div class="container-fluid">
+		<div class="card" id="manager-card" style="width: 18rem;">
+			<div class="card-body">
+				<h5 class="card-title">Manager</h5>
+				<p class="card-text">${data.managerName}</p>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">${data.managerId}</li>
+				<a href="mailto:${data.managerEmail}">
+				<li class="list-group-item manager-email">${data.managerEmail}</li>
+				</a>
+				<li class="list-group-item">${data.managerOffice}</li>
+			</ul>
+		</div>`
+	fs.appendFile('index.html', managerCard, err => {
+		if(err) {
+			console.error(err)
+		}
+	})
 	moreEmployees()
 });
 }
@@ -109,6 +124,22 @@ createEngineer = () => {
 	.then((data) => {
 	console.log(data)
 	pushTeamArray(data)
+	const engineerCard =
+		`<div class="card" id="engineer-card" style="width: 18rem;">
+			<div class="card-body">
+				<h5 class="card-title">Engineer</h5>
+				<p class="card-text">${data.engineerName}</p>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">${data.engineerId}</li>
+				<a href="mailto:${data.engineerEmail}">
+				<li class="list-group-item engineer-email">${data.engineerEmail}</li>
+				</a>
+				<a href="https://www.github.com/${data.engineerGithub}">
+				<li class="list-group-item engineer-github">${data.engineerGithub}</li>
+				</a>
+			</ul>
+		</div>`
 	fs.appendFile('index.html', engineerCard, err => {
 		if(err) {
 			console.error(err)
@@ -123,6 +154,21 @@ createIntern = () => {
 	.then((data) => {
 	 console.log(data)
 		pushTeamArray(data)
+		const internCard =		
+				`<div class="card" id="intern-card" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title">Intern</h5>
+						<p class="card-text">${data.internName}</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">${data.internId}</li>
+						<a href="mailto:${data.internEmail}">
+						<li class="list-group-item manager-email">${data.internEmail}</li>
+						</a>
+						<li class="list-group-item">${data.internSchool}</li>
+					</ul>
+				</div>
+			</div>`
 	fs.appendFile('index.html', internCard, err => {
 		if(err) {
 			console.error(err)
@@ -140,13 +186,14 @@ moreEmployees = () => {
 	} else if ('Intern' === data.addEmployee) {
 		createIntern();
 	} else {
+		endHTML();
 		console.log("banana")
 	}
 	})
 }
 
 const starterHTML = `
-			<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -171,55 +218,6 @@ startHTML = () => {
 		}
 	})
 }
-	
-const managerCard =
-	`<div class="container-fluid">
-		<div class="card" id="manager-card" style="width: 18rem;">
-			<div class="card-body">
-				<h5 class="card-title">Manager</h5>
-				<p class="card-text">${Manager.getName()}</p>
-			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">${Manager.getId()}</li>
-				<a href="mailto:${Manager.getEmail()}>
-					<li class="list-group-item">${Manager.getEmail()}</li>
-				</a>
-					<li class="list-group-item">${Manager.getOffice()}</li>
-			</ul>
-		</div>`
-
-const engineerCard =
-		`<div class="card" id="engineer-card" style="width: 18rem;">
-			<div class="card-body">
-				<h5 class="card-title">Engineer</h5>
-				<p class="card-text">${Engineer.name}</p>
-			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">${Engineer.id}</li>
-				<a href="mailto:${Engineer.email}">
-					<li class="list-group-item">${Engineer.email}</li>
-				</a>
-				<a href="https://www.github.com/${Engineer.github}>
-					<li class="list-group-item">${Engineer.github}</li>
-				</a>
-			</ul>
-		</div>`
-
-const internCard =		
-		`<div class="card" id="intern-card" style="width: 18rem;">
-			<div class="card-body">
-				<h5 class="card-title">Intern</h5>
-				<p class="card-text">${Intern.name}</p>
-			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">${Intern.id}</li>
-				<a href="mailto:${Intern.email}>
-					<li class="list-group-item">${Intern.email}</li>
-				</a>
-				<li class="list-group-item">${Intern.school}</li>
-			</ul>
-		</div>
-	</div>`
 
 const HTMLtag =	
 `</body>
@@ -240,7 +238,6 @@ endHTML= () => {
 init = () => {
 	startHTML();
 	createManager();
-	endHTML();
 }
 
 init();
