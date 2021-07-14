@@ -48,6 +48,6 @@ npm test
 
 If you have any questions about the repo, open an issue or contact me directly at scotty.d.phillips@gmail.com. You can find more of my work at https://github.com/scottydphillips
 
-Walkthrough video link:
+Walkthrough video link: https://youtu.be/CpIfqz1Uvdk
 
-Generated HTML Page Screenshot !["screenshot of deployed page"]()
+Generated HTML Page Screenshot !["screenshot of deployed page"](team-profile-generated.png)
