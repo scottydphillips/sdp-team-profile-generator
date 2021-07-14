@@ -1,4 +1,3 @@
-const inquirer = require('inquirer');
 const Employee = require('./employee.js');
 
 class Engineer extends Employee {
@@ -7,11 +6,11 @@ class Engineer extends Employee {
 	this.rank = 'Engineer';
 	this.github = github;
 	}
-	getGitHub() {
+	getGithub() {
 		return(this.github);
 	}
 	getRole() {
-		return "Engineer"
+		return "Engineer";
 	}
 }
 

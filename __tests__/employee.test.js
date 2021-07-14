@@ -2,17 +2,19 @@ const Employee = require("../employee.js");
 
 describe("Employee", () => {
 	describe("Prompt", () => {
-		it("should prompt a question for the employee's name that receives a value", () => {
-			const banana = new Employee(name);
-			expect(banana in Employee.name).toEqual(true);
+		it("can instantiate Employee instance", () => {
+			const banana = new Employee()
+			expect(typeof(banana)).toBe('object');
 		});
-		it("should prompt a question for the employee's email address that receives a value", () => {
-			const pear = new Employee(email);
-			expect(pear in Employee.email).toEqual(true);
+		it("can set a name via Constructor", () => {
+			const name = "Jenny";
+			const pear = new Employee(8675309, name);
+			expect(pear.getName()).toBe(name);
 		});
-		it("should prompt a question for the employee's ID number that receives a value", () => {
-			const apple = new Employee(id);
-			expect(apple in Employee.officeNumber).toEqual(true);
+		it("can set email via Constructor", () => {
+			const email = "Jenny@TommyTuTone.com"
+			const apple = new Employee(8675309, "Jenny", 8675309, email);
+			expect(apple.getEmail()).toBe(email);
 		})
 	})
 })

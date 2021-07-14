@@ -2,17 +2,19 @@ const Manager = require("../manager.js");
 
 describe("Manager", () => {
 	describe("Prompt", () => {
-		it("should prompt a question for the manager's name that receives a value", () => {
-			const banana = new Manager(name);
-			expect(banana in Manager.name).toEqual(true);
+		it("can instantiate Manager instance", () => {
+			const banana = new Manager()
+			expect(typeof(banana)).toBe('object');
 		});
-		it("should prompt a question for the manager's email address that receives a value", () => {
-			const pear = new Manager(email);
-			expect(pear in Manager.email).toEqual(true);
+		it("can set a name via Constructor", () => {
+			const name = "Jenny";
+			const pear = new Manager(8675309, name);
+			expect(pear.getName()).toBe(name);
 		});
-		it("should prompt a question for the manager's office number that receives a value", () => {
-			const apple = new Manager(officeNumber);
-			expect(apple in Manager.officeNumber).toEqual(true);
+		it("can set office number via Constructor", () => {
+			const officeNumber = 42
+			const apple = new Manager("TuTone", "Jenny", 8675309, "Jenny@TommyTuTone.com", officeNumber);
+			expect(apple.getOffice()).toBe(officeNumber);
 		})
 	})
 })

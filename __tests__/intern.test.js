@@ -2,17 +2,19 @@ const Intern = require("../intern.js");
 
 describe("Intern", () => {
 	describe("Prompt", () => {
-		it("should prompt a question for the intern's name that receives a value", () => {
-			const banana = new Intern(name);
-			expect(banana in Intern.name).toEqual(true);
+		it("can instantiate Intern instance", () => {
+			const banana = new Intern()
+			expect(typeof(banana)).toBe('object');
 		});
-		it("should prompt a question for the intern's email address that receives a value", () => {
-			const pear = new Intern(email);
-			expect(pear in manager.email).toEqual(true);
+		it("can set a name via Constructor", () => {
+			const name = "Jenny";
+			const pear = new Intern(8675309, name);
+			expect(pear.getName()).toBe(name);
 		});
-		it("should prompt a question for the intern's school that receives a value", () => {
-			const apple = new Intern(school);
-			expect(apple in Intern.school).toEqual(true);
+		it("can set school via Constructor", () => {
+			const school = "School of Rock"
+			const apple = new Intern("TuTone", "Jenny", 8675309, "Jenny@TommyTuTone.com", school);
+			expect(apple.getSchool()).toBe(school);
 		})
 	})
 })
